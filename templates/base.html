@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>패피슈슈 블로그 - 방송 패션 맛집 제품</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- 사이트 헤더 -->
+<header class="site-header">
+    <div class="header-inner">
+        <div class="blog-title-area">
+            <a href="/" class="blog-name">패피슈슈</a>
+            <span class="blog-tagline">방송 · 패션 · 맛집 · 제품 큐레이션</span>
+        </div>
+        <nav class="header-nav">
+            <a href="/">홈</a>
+            <a href="/?category=맛집여행지추천">맛집</a>
+            <a href="/?category=제품소개">제품</a>
+        </nav>
+    </div>
+</header>
+
+<div class="layout-wrapper">
+
+    <!-- 왼쪽 사이드바 -->
+    <aside class="sidebar">
+        <!-- 카테고리 섹션 -->
+        <div class="sidebar-card">
+            <div class="sidebar-card-header">
+                <span class="card-icon">📂</span>
+                <h3>카테고리</h3>
+                <button class="toggle-btn" onclick="toggleSection(this)">▲</button>
+            </div>
+            <ul class="category-list">
+                {% for cat in categories %}
+                <li>
+                    <a href="/?category={{ cat.name }}"
+                       class="cat-link {% if active_category == cat.name %}active{% endif %}">
+                        <span class="cat-dot"></span>
+                        {{ cat.name }}
+                        {% if cat.count > 0 %}
+                        <span class="cat-count">({{ cat.count }})</span>
+                        {% endif %}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- 활동정보 -->
+        <div class="sidebar-card">
+            <div class="sidebar-card-header">
+                <span class="card-icon">✨</span>
+                <h3>활동정보</h3>
+            </div>
+            <div class="activity-info">
+                <div class="activity-row">
+                    <span class="activity-label">블로그 이웃</span>
+                    <span class="activity-value">696 명</span>
+                </div>
+                <div class="activity-row">
+                    <span class="activity-label">글 보내기</span>
+                    <span class="activity-value">0 회</span>
+                </div>
+                <div class="activity-row">
+                    <span class="activity-label">글 스크랩</span>
+                    <span class="activity-value">42 회</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 프로필 -->
+        <div class="sidebar-card profile-card">
+            <div class="profile-avatar">🎀</div>
+            <div class="profile-name">패피슈슈</div>
+            <div class="profile-id">skywhite369</div>
+            <a href="#" class="profile-link">프로필 ▶</a>
+            <button class="follow-btn">+ 이웃추가</button>
+        </div>
+
+        <!-- 검색 -->
+        <div class="sidebar-card search-card">
+            <div class="search-box">
+                <input type="text" placeholder="검색어를 입력하세요" class="search-input">
+                <button class="search-btn">🔍</button>
+            </div>
+        </div>
+
+        <!-- RSS -->
+        <div class="sidebar-card rss-card">
+            <div class="rss-links">
+                <a href="#">RSS 2.0</a>
+                <span>|</span>
+                <a href="#">RSS 1.0</a>
+                <span>|</span>
+                <a href="#">ATOM 0.3</a>
+            </div>
+        </div>
+    </aside>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
+    </main>
+
+</div>
+
+<!-- 푸터 -->
+<footer class="site-footer">
+    <div class="footer-inner">
+        <p class="footer-notice">
+            🛒 쿠팡파트너스활동의 일환으로 일정액의 수수료를 제공받습니다.<br>
+            <strong>구매자에게 수수료를 부과하지 않습니다.</strong>
+        </p>
+        <p class="footer-copy">© 2024 패피슈슈 블로그. All rights reserved.</p>
+    </div>
+</footer>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

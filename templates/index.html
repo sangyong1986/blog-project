@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!-- 포스트 목록 헤더 -->
+<div class="content-header">
+    <div class="content-header-left">
+        <span class="breadcrumb">{{ active_category }}</span>
+        <span class="post-total">{{ total }}개의 글</span>
+    </div>
+    <button class="list-toggle-btn" onclick="toggleListView()">목록열기</button>
+</div>
+
+<!-- 포스트 목록 -->
+<div class="posts-container" id="postsContainer">
+    {% for post in posts %}
+    <article class="post-card" onclick="location.href='/post/{{ post.id }}'">
+
+        <!-- 캡쳐 이미지 느낌의 포스트 미리보기 영역 -->
+        <div class="post-screenshot">
+            <div class="screenshot-bar">
+                <span class="ss-dot red"></span>
+                <span class="ss-dot yellow"></span>
+                <span class="ss-dot green"></span>
+                <span class="ss-url">blog.naver.com/skywhite369</span>
+            </div>
+            <div class="screenshot-body">
+                <div class="ss-category-badge">{{ post.category }}</div>
+                <h2 class="ss-title">{{ post.title }}</h2>
+                <div class="ss-meta">
+                    <span class="ss-author">{{ post.author }}</span>
+                    <span class="ss-time">{{ post.time }}</span>
+                </div>
+            </div>
+            <div class="screenshot-emoji">
+                {% if post.image == 'sunglasses' %}🕶️
+                {% elif post.image == 'cafe' %}☕
+                {% elif post.image == 'beauty' %}💄
+                {% elif post.image == 'fashion' %}👗
+                {% else %}🧥
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- 포스트 정보 영역 -->
+        <div class="post-info">
+            <p class="post-desc">{{ post.description }}</p>
+            <div class="post-tags">
+                {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            <div class="post-footer-row">
+                <div class="post-stats">
+                    <span class="stat-item">👁️ {{ post.views }}</span>
+                    <span class="stat-item">📌 {{ post.scraps }}</span>
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn" onclick="event.stopPropagation()">URL 복사</button>
+                    <button class="action-btn follow" onclick="event.stopPropagation()">+ 이웃추가</button>
+                </div>
+            </div>
+        </div>
+
+    </article>
+    {% endfor %}
+</div>
+
+{% endblock %}
